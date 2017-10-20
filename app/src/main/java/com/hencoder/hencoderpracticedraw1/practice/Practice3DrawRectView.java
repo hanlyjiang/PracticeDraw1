@@ -2,6 +2,8 @@ package com.hencoder.hencoderpracticedraw1.practice;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
@@ -25,5 +27,19 @@ public class Practice3DrawRectView extends View {
         super.onDraw(canvas);
 
 //        练习内容：使用 canvas.drawRect() 方法画矩形
+        float centerX = getWidth() / 2f;
+        float centerY = getHeight() / 2f;
+        int rectxWidth = Math.min(getHeight(), getWidth());
+
+        int rectWidth = rectxWidth -200;
+        int rectHeight = rectxWidth - 200;
+        canvas.drawRect(centerX - rectWidth/2f, centerY- rectHeight/2f,centerX + rectWidth/2f, centerY + rectHeight/2f,createPaint());
+
+    }
+
+    private Paint createPaint() {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(Color.BLACK);
+        return paint;
     }
 }

@@ -2,11 +2,15 @@ package com.hencoder.hencoderpracticedraw1.practice;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 
 public class Practice9DrawPathView extends View {
+
+    private Paint paint;
 
     public Practice9DrawPathView(Context context) {
         super(context);
@@ -25,5 +29,23 @@ public class Practice9DrawPathView extends View {
         super.onDraw(canvas);
 
 //        练习内容：使用 canvas.drawPath() 方法画心形
+        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        canvas.drawPath(makeHeartPath(), paint);
+    }
+
+    private Path makeHeartPath() {
+        Path path = new Path();
+
+        float cX = getWidth() / 2f;
+        float cY = getHeight() / 2f;
+        float anchWidth = 200;
+        path.lineTo(cX, cY + anchWidth);
+        path.lineTo(cX - anchWidth, cY);
+        path.lineTo(cX + anchWidth, cY);
+        path.lineTo(cX, cY + anchWidth);
+        path.addCircle(cX - anchWidth/2f, cY - anchWidth/2f, anchWidth/2f,  Path.Direction.CW);
+        path.addCircle(cX + anchWidth/2f, cY - anchWidth/2f, anchWidth/2f,  Path.Direction.CW);
+//        path.addCircle();
+        return path;
     }
 }

@@ -2,7 +2,9 @@ package com.hencoder.hencoderpracticedraw1.practice;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.support.annotation.Nullable;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -25,5 +27,17 @@ public class Practice6DrawLineView extends View {
         super.onDraw(canvas);
 
 //        练习内容：使用 canvas.drawLine() 方法画直线
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setStrokeWidth(40);
+        canvas.drawLine(getWidth()*0.25f,getHeight()*0.25f,
+                getWidth()*0.75f,getHeight()*0.75f, paint);
+
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        canvas.drawLine(getWidth()*0.25f,getHeight()*0.25f,
+                getWidth()*0.45f,getHeight()*0.75f, paint);
+
+        paint.setStrokeCap(Paint.Cap.BUTT);
+        canvas.drawLine(getWidth()*0.25f,getHeight()*0.25f,
+                getWidth()*0.65f,getHeight()*0.75f, paint);
     }
 }
