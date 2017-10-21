@@ -17,6 +17,8 @@ public class Practice9DrawPathView extends View {
 
     private Paint mPaint;
     private int color = Color.RED;
+    private float transX;
+    private float transY;
 
     public Practice9DrawPathView(Context context) {
         super(context);
@@ -37,11 +39,21 @@ public class Practice9DrawPathView extends View {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                color = Utils.randomColor();
+                transX = (float) Math.random();
                 postInvalidate();
             }
         };
         new Timer().scheduleAtFixedRate(timerTask, 2000, 2000);
+
+        TimerTask timerTask2 = new TimerTask() {
+            @Override
+            public void run() {
+                color = Utils.randomColor();
+                transY = (float) Math.random();
+                postInvalidate();
+            }
+        };
+        new Timer().scheduleAtFixedRate(timerTask2, 3000, 2000);
     }
 
     /**
@@ -81,10 +93,26 @@ public class Practice9DrawPathView extends View {
         path.lineTo((float) (circleRadius - Math.cos(Utils.angleToRad(30)) * circleRadius),
                 (float) (circleRadius + Math.sin(Utils.angleToRad(30)) * circleRadius));
 
-        canvas.translate(getWidth()/4, getHeight()/4);
+        canvas.translate(calcTransX(availableWidth), calcTransY(availableWidth));
 //        canvas.drawColor(Utils.randomColor());
         canvas.drawPath(path, mPaint);
         canvas.save();
+    }
+
+    private float calcTransY(int availableWidth) {
+        float preTrans = getHeight() * transY;
+        if (preTrans > getHeight() - availableWidth / 2) {
+            preTrans = getHeight() - availableWidth / 2;
+        }
+        return preTrans;
+    }
+
+    private float calcTransX(int availableWidth) {
+        float preTrans = getWidth() * transX;
+        if (preTrans > getWidth() - availableWidth / 2) {
+            preTrans = getWidth() - availableWidth / 2;
+        }
+        return preTrans;
     }
 
     private Path makeHeartPath() {
